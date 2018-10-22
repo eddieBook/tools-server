@@ -26,20 +26,17 @@ router.get('/', function (req, res, next) {
 // 注册用户
 router.post('/register', function (req, res, next) {
   const {
-    email,
-    nickname,
-    pass
+    email
   } = req.body;
   console.log(req.body)
-  console.log(email)
-  console.log(nickname)
-  console.log(pass)
-
-  if (email != undefined && nickname != undefined && pass != undefined) {
-    sendEmail(email, '邮箱注册', '兄迭，没搞额')
+  if (email != undefined) {
+    const content = `
+    <h1 style="text-align:center">验证码是<em>${10000 + Math.random().toFixed(4) * 90000}</em></h1> 
+    `
+    sendEmail(email, '邮箱注册', content)
     res.send({
       code: 0,
-      msg: '注册成功'
+      msg: '邮件发送成功'
     })
   } else {
     res.send({
