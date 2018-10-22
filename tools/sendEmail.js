@@ -9,13 +9,15 @@ var transporter = nodemailer.createTransport({
     }
 });
 
-module.exports = function (url, title, content) {
+module.exports = function (url, title, content, attachments) {
     var mailOptions = {
         from: '3241990245@qq.com', // 发件地址
         to: url, // 收件列表
         subject: title, // 标题  
-        html: content // html 内容
+        html: content, // html 内容
+        attachments: attachments
     };
+    console.log(mailOptions)
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
             return console.log(error);
