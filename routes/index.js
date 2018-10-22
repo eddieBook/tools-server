@@ -51,7 +51,7 @@ router.post("/register", function (req, res, next) {
   } else {
     res.send({
       code: 1,
-      msg: "元素有缺失"
+      msg: "元素缺失"
     });
   }
 });
