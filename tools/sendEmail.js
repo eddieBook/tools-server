@@ -8,8 +8,13 @@ var transporter = nodemailer.createTransport({
         pass: 'bpklrxlqkscddajc'
     }
 });
-
-module.exports = function (url, title, content, attachments) {
+/**
+ * toEmail:收件人
+ * title:邮箱标题
+ * content：邮件内容
+ * attachments：附件
+ */
+module.exports = function (toEmail, title, content, attachments) {
     var mailOptions = {
         from: '3241990245@qq.com', // 发件地址
         to: url, // 收件列表
@@ -17,12 +22,7 @@ module.exports = function (url, title, content, attachments) {
         html: content, // html 内容
         attachments: attachments
     };
-    console.log(mailOptions)
     transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-            return console.log(error);
-        }
-        console.log('Message sent: ' + info.response);
-
+        return error
     });
 }
