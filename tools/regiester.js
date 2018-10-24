@@ -1,13 +1,14 @@
 var sendEmail = require("./sendEmail");
-var mysql = require('mysql');
+var mysqlLink = require('./useMysql');
+var mysqlConfig = require('../configs/mysql.config')
 module.exports = function (req, res, next) {
     const {
         email
     } = req.body;
     if (email != undefined) {
+        const code = parseInt(10000 + Math.random().toFixed(4) * 90000);
         const content = `
-      <h1 style="text-align:center">验证码是<em style="color:red">${10000 +
-        Math.random().toFixed(4) * 90000}</em></h1> 
+      <h1 style="text-align:center">验证码是<em style="color:red">${code}</em></h1> 
         <img src="cid:00000001" style="width:425px;display:block;margin:0 auto" />
       `;
         const attachments = [{
@@ -21,35 +22,33 @@ module.exports = function (req, res, next) {
                 code: 0,
                 msg: "邮件发送成功"
             });
-            var connection = mysql.createConnection({
-                host: 'localhost',
-                user: 'root',
-                password: 'Windows10',
-                port: '3306',
-                database: 'tools',
-            });
-            connection.connect(e => {
-                if (e) {
-                    console.log(e)
-                    console.log('connect faild')
-                } else {
-                    console.log('connect success')
-                }
-            });
-            var addSql = 'INSERT INTO user(user_id,email,nick_name,register_time,code,password) VALUES(0,?,?,?,?,?)';
-            var addSqlParams = ['813941626@qq.com', 'kele', '2014/3/12', '23453', '1111'];
-            connection.query(addSql, addSqlParams, function (err, result) {
-                if (err) {
-                    console.log('[INSERT ERROR] - ', err.message);
-                    return;
-                }
+            var mysqlconnect = new mysqlLink(mysqlConfig)
 
-                console.log('--------------------------INSERT----------------------------');
-                //console.log('INSERT ID:',result.insertId);        
-                console.log('INSERT ID:', result);
-                console.log('-----------------------------------------------------------------\n\n');
+            mysqlconnect.connect().then(function () {
+                mysqlconnect.find('email_code', 'code', {
+                    email
+                }).then(res => {
+                    if (res.length != 0) {
+                        mysqlconnect.update('email_code', {
+                            code,
+                        }, {
+                            email
+                        })
+                    } else {
+                        console.log('new user')
+                        mysqlconnect.addLine('email_code', {
+                            email,
+                            code
+                        })
+                    }
+                })
             });
-            connection.end();
+            // mysqlconnect.update('email_code', {
+            //     code
+            // }, {
+            //     email
+            // })
+
         } else {
             res.send({
                 code: -1,

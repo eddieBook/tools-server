@@ -17,7 +17,7 @@ var transporter = nodemailer.createTransport({
 module.exports = function (toEmail, title, content, attachments) {
     var mailOptions = {
         from: '3241990245@qq.com', // 发件地址
-        to: url, // 收件列表
+        to: toEmail, // 收件列表
         subject: title, // 标题  
         html: content, // html 内容
         attachments: attachments
