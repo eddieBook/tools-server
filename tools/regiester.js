@@ -25,7 +25,7 @@ module.exports = function(req, res, next) {
 
       console.log(mysql.findVerifyCode(email));
       mysql.findVerifyCode(email).then(res => {
-        console.log(res);
+        if(res)
       });
       // if (mysql.findVerifyCode(email).length == 0) {
       //   mysql.insertVerifyCode(email, code);
