@@ -1,8 +1,8 @@
 var express = require("express");
 var router = express.Router();
-var regiester = require("../tools/regiester");
+var user_center = require("../tools/user_center");
 
-router.all("*", function (req, res, next) {
+router.all("*", function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
@@ -19,13 +19,15 @@ router.all("*", function (req, res, next) {
 });
 
 /* GET home page. */
-router.get("/", function (req, res, next) {
+router.get("/", function(req, res, next) {
   res.render("index", {
     title: "Express"
   });
 });
 
 // 注册用户
-router.post("/register", regiester);
+router.post("/user/getCode", user_center.getCode);
+router.post("/user/addUser", user_center.addUser);
+router.post("/user/login", user_center.login);
 
 module.exports = router;
