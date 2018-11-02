@@ -1,10 +1,8 @@
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
-var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var session = require("express-session");
-var cookieParser = require("cookie-parser");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -15,16 +13,17 @@ var app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 
-// 使用 session 中间件
-app.use(cookieParser("sessiontest"));
 app.use(
   session({
-    secret: "sessiontest", // 对session id 相关的cookie 进行签名
+    name: "tools",
+    secret: "keyboard cat",
+    cookie: ("name",
+    "value",
+    { path: "/", httpOnly: true, secure: false, maxAge: 60000 }),
+    //重新保存：强制会话保存即使是未修改的。默认为true但是得写上
     resave: true,
-    saveUninitialized: false, // 是否保存未初始化的会话
-    cookie: {
-      maxAge: 1000 * 60 * 3 // 设置 session 的有效时间，单位毫秒
-    }
+    //强制“未初始化”的会话保存到存储。
+    saveUninitialized: true
   })
 );
 
@@ -35,7 +34,6 @@ app.use(
     extended: false
   })
 );
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);

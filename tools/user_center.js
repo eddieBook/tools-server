@@ -59,7 +59,9 @@ module.exports = {
       res.send({ code: 1, msg: "用户尚未注册" });
     } else {
       if (user[0].pass == pass) {
+        console.log(req.session.userId);
         req.session.userId = req.body.email;
+
         res.send("ok");
       } else {
         res.send("fail");
