@@ -55,6 +55,7 @@ module.exports = {
   login: async function(req, res, next) {
     const { email, pass } = req.body;
     let user = await mysql.findUser(email);
+    
     if (user.length == 0) {
       res.send({ code: 1, msg: "用户尚未注册" });
     } else {
