@@ -2,13 +2,14 @@
  * @Author: kele 
  * @Date: 2019-01-11 15:30:25 
  * @Last Modified by: kele
- * @Last Modified time: 2019-01-11 17:15:23
+ * @Last Modified time: 2019-01-14 16:07:25
  */
 const koa = require('koa');
 const koaStatic = require('koa-static');
 const koaCors = require('@koa/cors');
 const koaLogger = require('koa-logger');
 const setConfig = require('./config/config.controller').setConfig;
+const test = require('./tools/crawler/test');
 
 const app = new koa();
 // 配置静态文件
