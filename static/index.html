@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Fight</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <style>
+        body{
+            margin: 0
+        }
+    .layout{
+        width: 100vw;
+        height: 100vh;
+        background: url('./36679346.jpg') no-repeat;
+        background-size: 100% 100%;
+        display: flex;
+        flex-direction:column;
+        align-items: center;
+        justify-content: center;
+    }
+    .layout h1{
+        margin: 0;
+        color: darkblue;
+        font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+    }
+    .layout .find{
+        display: inline-block;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;    color: #67c23a;    border: 1px solid #dcdfe6;
+    background: #f0f9eb; 
+    color: #606266;
+    -webkit-appearance: none;
+    text-align: center;
+    box-sizing: border-box;
+    outline: none;
+    margin: 0;
+    transition: .1s;
+    font-weight: 500;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    padding: 12px 20px;
+    font-size: 14px;
+    border-radius: 4px;
+    margin-top: 100px
+    }
+    </style>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+
+<script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
+<script src="https://cdn.bootcss.com/stomp.js/2.3.3/stomp.js"></script>
+</head>
+<body>
+    <div class="layout">
+      <h1>对战准备</h1> 
+      <button class="find">匹配对手</button>
+      <button class="cancel">取消匹配</button>
+    </div>
+</body>
+<script>
+  $.getQueryString = function (name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]);
+    return null;
+  }; 
+ var  websocktNect=function(params, callback) {
+			return new Promise((resolve, reject) => {
+				let socket = new SockJS(params.nectNode);
+				let stompClient = Stomp.over(socket);
+				stompClient.debug = function(str) {
+					console.log(str);
+				};
+				stompClient.connect(
+					{},
+					(frame) => {
+                        
+						callback(stompClient, params, frame);
+						resolve();
+					},
+					(e) => {
+						console.error(e);
+						console.log('...connect... err');
+						resolve();
+					}
+				);
+			});
+        }
+        var userid=$.getQueryString('userID')
+  function check(userid) {
+      let gameID=userid>50?1:2
+      console.log(gameID)
+      websocktNect(
+				{
+					nectNode: 'http://192.168.1.6:8080/endpoint-websocket',
+					url: '/topic/onlineMatch/g'+gameID+'u'+userid
+				},
+				(stompClient, opt, frame) => {
+                    axios({
+          url:'http://192.168.1.6:8080/app/match',
+          method: 'post',
+          params:{
+           gameID,
+           userID:userid
+          } 
+      }).then((result) => {
+        if(result.data=='ok'){
+            if(result.data=='ok'){
+        
+        }
+        }
+      }).catch((err) => {
+          console.log(err)
+      });
+					stompClient.subscribe(opt.url, (response) => {
+                        console.log(response)
+                    });
+				}
+			);
+    
+    //   window.location.href="file:///C:/work/game/game-fight/index/bpbtz/index.html"
+  }
+  for (let index =1; index <= 100; index++) {
+     setTimeout(() => { 
+    check(index)
+     }, index*250);
+  }
+
+   function xxx(){
+    for (let index = 0; index < 10; index++) {
+    cancel(index,2) 
+   }
+  }
+// xxx()
+// for (let index = 21; index < 44; index++) {
+//      setTimeout(() => { 
+//     check(index)
+//      }, index*500);
+//   }
+
+  function cancel(userid,gameID) {
+      axios({
+          url:'http://192.168.1.6:8080/app/unmatch',
+          method: 'post',
+          params:{
+           gameID:gameID,
+           userID:userid
+          } 
+      }).then((result) => {
+      
+      }).catch((err) => {
+          console.log(err)
+      });
+    //   window.location.href="file:///C:/work/game/game-fight/index/bpbtz/index.html"
+  }
+</script>
+</html>

@@ -1,5 +1,5 @@
 # 端口号
-PORT: 3000
+PORT: 8088
 # 是否允许跨域
 ALLOW_ORIGIN: true
 # 聊天室websocket 端口

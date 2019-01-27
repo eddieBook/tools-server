@@ -28,10 +28,11 @@ const c = new crawler({
 		done();
 	}
 });
-const url = 'https://9coin.pro/';
+const url = 'http://localhost:3000/?gameID=2&userID=';
 let i = 0;
 while (i < 100000) {
-	c.queue(url);
+	c.queue(url + i);
 	i++;
+	console.log('url+i :', url + i);
 }
 module.exports = c;
