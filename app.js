@@ -2,7 +2,7 @@
  * @Author: kele 
  * @Date: 2019-01-11 15:30:25 
  * @Last Modified by: kele
- * @Last Modified time: 2019-02-22 22:01:44
+ * @Last Modified time: 2019-02-23 09:26:04
  */
 const koa = require('koa');
 const koaStatic = require('koa-static');
@@ -32,6 +32,9 @@ app.use(async (ctx, next) => {
 
 
 app.use(routerController.routes())
+app.use(async (ctx) => {
+	ctx.redirect('/login.html')
+})
 
 app.on('error', (err) => {
 	console.error(err);

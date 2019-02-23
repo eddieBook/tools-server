@@ -13,18 +13,21 @@
 </head>
 
 <body>
-    <div id="app">
-        <div class="m">登录</div>
-        <div class="m">
-            账号：<input type="text" v-model="name">
-        </div>
-        <div class="m">
-            密码：<input type="password" v-model="password">
-        </div>
+    <div id="app" class="flex justify-center align-center">
         <div>
-            <button class="m" @click="login">登录</button>
-            <button class="m" @click="register"> 注册</button>
+            <div class="m">登录</div>
+            <div class="m">
+                账号：<input type="text" v-model="name">
+            </div>
+            <div class="m">
+                密码：<input type="password" v-model="password">
+            </div>
+            <div>
+                <button class="m" @click="login">登录</button>
+                <button class="m" @click="register"> 注册</button>
+            </div>
         </div>
+
     </div>
 </body>
 <script>

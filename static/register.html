@@ -14,22 +14,24 @@
 </head>
 
 <body>
-    <div id="app">
-        <div class="m">注册：</div>
-        <div class="m">
-            邮箱：<input type="text" v-model="name">
-        </div>
-        <div></div>
-        <div class="m">
-            密码：<input type="password" v-model="password">
-        </div>
-        <div class="m">
-            验证：<input type="text" v-model="code">
-        </div>
-        <div class="m">
-            <button @click="login">登录</button>
-            <button @click="register"> 注册</button>
-            <button @click="getCode">获取验证码</button>
+    <div id="app" class="flex justify-center align-center">
+        <div>
+            <div class="m">注册：</div>
+            <div class="m">
+                邮箱：<input type="text" v-model="address">
+            </div>
+            <div></div>
+            <div class="m">
+                密码：<input type="password" v-model="password">
+            </div>
+            <div class="m">
+                验证：<input type="text" v-model="code">
+            </div>
+            <div class="m">
+                <button @click="login">登录</button>
+                <button @click="register"> 注册</button>
+                <button @click="getCode">获取验证码</button>
+            </div>
         </div>
     </div>
 </body>
@@ -37,14 +39,24 @@
     const app = new Vue({
         el: '#app',
         data: {
-            name: '',
+            address: '',
             password: "",
             code: ''
         },
         mounted() {},
         methods: {
             getCode() {
-                alert('msg');
+                axios({
+                    url: '/user/getCode',
+                    method: 'post',
+                    data: {
+                        address: this.address
+                    }
+                }).then((result) => {
+
+                }).catch((err) => {
+
+                });
             },
             login() {
                 window.location.href = "/login.html"
