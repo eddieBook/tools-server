@@ -5,10 +5,8 @@ const transporter = nodemailer.createTransport(config);
 
 // setup e-mail data, even with unicode symbols
 let mailOptions = {
-    from: 'chj.ymh@outlook.com', // sender address (who sends)
-    to: '', // list of receivers (who receives)
-    subject: 'hello', // Subject line 
-    html: 'hello' // html body
+    from: 'chj.ymh@outlook.com', // sender address (who sends) 
+    subject: 'hello', // Subject line  
 };
 
 // send mail with defined transport object
@@ -16,7 +14,6 @@ let mailOptions = {
 exports.sendMail = function (sendMessage) {
     mailOptions = Object.assign(mailOptions, sendMessage)
     return new Promise((resolve, reject) => {
-        console.log('mail :', mailOptions);
         transporter.sendMail(mailOptions, function (error, info) {
             if (error) {
                 reject(error)

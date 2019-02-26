@@ -16,9 +16,9 @@
 <body>
     <div id="app" class="flex justify-center align-center">
         <div>
-            <div class="m">注册：</div>
+            <div class="m">注册&找回密码：<span style="color:red"> {{msg}}...</span></div>
             <div class="m">
-                邮箱：<input type="text" v-model="address">
+                邮箱：<input type="text" v-model="email">
             </div>
             <div></div>
             <div class="m">
@@ -29,7 +29,7 @@
             </div>
             <div class="m">
                 <button @click="login">登录</button>
-                <button @click="register"> 注册</button>
+                <button @click="register"> 注册&找回密码</button>
                 <button @click="getCode">获取验证码</button>
             </div>
         </div>
@@ -39,9 +39,10 @@
     const app = new Vue({
         el: '#app',
         data: {
-            address: '',
+            email: '',
             password: "",
-            code: ''
+            code: '',
+            msg: '等待注册'
         },
         mounted() {},
         methods: {
@@ -50,12 +51,14 @@
                     url: '/user/getCode',
                     method: 'post',
                     data: {
-                        address: this.address
+                        email: this.email
                     }
-                }).then((result) => {
-
+                }).then(({
+                    data
+                }) => {
+                    this.msg = data.message
                 }).catch((err) => {
-
+                    this.msg = "程序挂了"
                 });
             },
             login() {
@@ -66,14 +69,19 @@
                     url: '/user/register',
                     method: 'post',
                     data: {
-                        name: this.name,
+                        email: this.email,
                         password: this.password,
                         code: this.code
                     }
                 }).then(({
                     data
                 }) => {
-
+                    if (data.code == 0) {
+                        setTimeout(() => {
+                            window.location.href = "/login"
+                        }, 1024);
+                    }
+                    this.msg = data.message
                 }).catch((err) => {
 
                 });

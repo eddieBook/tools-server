@@ -3,7 +3,8 @@ module.exports = {
     port: '27017',
     database: {
         users: {
-            db: 'test'
+            db: 'toolServer',
+            table: 'user'
         }
     }
 };
