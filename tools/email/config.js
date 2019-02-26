@@ -7,6 +7,6 @@ module.exports = {
     },
     auth: {
         user: 'chj.ymh@outlook.com',
-        pass: 'Windows10'
+        pass: 'Thinkpad'
     }
 }

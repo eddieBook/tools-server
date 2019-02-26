@@ -2,13 +2,17 @@
  * @Author: kele 
  * @Date: 2019-02-22 22:16:48 
  * @Last Modified by: kele
- * @Last Modified time: 2019-02-23 12:17:23
+ * @Last Modified time: 2019-02-26 10:42:06
  */
 const koaRouter = require('koa-router');
 const validator = require('validator');
+const mongodb = require('mongodb').MongoClient;
 const send = require('../tools/email/send');
 
 const router = new koaRouter();
+
+
+
 
 router.post('/register', async (ctx, next) => {
 
@@ -30,19 +34,40 @@ router.post('/getCode', async (ctx, next) => {
     }
     let sendMessage = {
         to: ctx.body.address,
-        html: 'hello world'
+        html: `验证码为<b>${parseInt(Math.random() * 10000)}</b>,<br/>此验证码一直有效直到下次获取`
     }
     try {
-        await send.sendMail(sendMessage)
+        let url = 'mongodb://localhost:27017/test';
+        mongodb.connect(url, {
+            useNewUrlParser: true
+        }, (err, db) => {
+            if (err) {
+                throw (err)
+            }
+            let database = db.db('test');
+            let obj = {
+                name: 'zhangteng'
+            };
+            database.collection('user').insertOne(obj, (err, res) => {
+                if (err) {
+                    throw (err)
+                };
+                console.log('res :', res);
+            })
+        })
+
+
+
+
+
+
+        // await send.sendMail(sendMessage)
         ctx.body = {
             code: 0,
             msg: 'success'
         }
     } catch (error) {
-        ctx.body = {
-            code: -1,
-            msg: error
-        }
+        ctx.throw('500', error)
     }
 
 })
