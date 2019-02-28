@@ -2,16 +2,16 @@
  * @Author: kele 
  * @Date: 2019-01-11 15:30:25 
  * @Last Modified by: kele
- * @Last Modified time: 2019-02-23 09:26:04
+ * @Last Modified time: 2019-02-27 17:49:11
  */
 const koa = require('koa');
 const koaStatic = require('koa-static');
 const koaCors = require('@koa/cors');
-const koaLogger = require('koa-logger');
 const koaBodyparser = require('koa-bodyparser');
+const log4Js = require('log4js');
 const setConfig = require('./config/config.controller').setConfig;
-const localLog = require('./tools/record/err_log');
 const routerController = require('./routers/router_controller');
+const logConf = require('./log.config');
 
 const app = new koa();
 // 配置静态文件
@@ -20,10 +20,14 @@ app.use(koaStatic(__dirname + '/static'));
 if (setConfig.ALLOW_ORIGIN) {
 	app.use(koaCors());
 }
-// 配置控制台日志
-app.use(koaLogger());
-//本地文件日志
-app.use(localLog());
+// 配置控制台日志 
+log4Js.configure(logConf);
+const logFile = log4Js.getLogger('log_file');
+logFile.trace('this is a log')
+
+
+
+
 app.use(koaBodyparser());
 app.use(async (ctx, next) => {
 	ctx.body = ctx.request.body;
@@ -32,10 +36,6 @@ app.use(async (ctx, next) => {
 
 
 app.use(routerController.routes())
-app.use(async (ctx) => {
-	ctx.redirect('/login.html')
-})
-
 app.on('error', (err) => {
 	console.error(err);
 });
