@@ -6,7 +6,7 @@
  */
 const koaRouter = require('koa-router');
 const validator = require('validator');
-const send = require('../tools/email/send');
+const send = require('../tools/send_email');
 const userDb = require('../tools/mongodb/user_db');
 
 const router = new koaRouter();

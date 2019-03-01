@@ -5,7 +5,8 @@
 	"main": "app.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "node app.js"
+		"start": "node app.js",
+		"serve": "NODE_ENV=production forever start -l ~/.forever/forever.log -e ~/.forever/err.log -w -a app.js"
 	},
 	"author": "kele",
 	"license": "ISC",
@@ -20,6 +21,7 @@
 		"node-schedule": "^1.3.2",
 		"nodemailer": "^5.1.1",
 		"socket.io": "^2.2.0",
+		"superagent": "^4.1.0",
 		"validator": "^10.11.0"
 	},
 	"devDependencies": {
