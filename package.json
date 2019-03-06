@@ -6,7 +6,7 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"start": "node app.js",
-		"serve": "NODE_ENV=production forever start -l ~/.forever/forever.log -e ~/.forever/err.log -w -a app.js"
+		"serve": "NODE_ENV=production pm2 start app.js"
 	},
 	"author": "kele",
 	"license": "ISC",
