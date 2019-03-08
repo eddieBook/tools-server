@@ -1,7 +1,7 @@
 const mongodb = require('mongodb').MongoClient;
 const dbConf = require('./db_conf');
 
-exports.connect = (params) => {
+const connect = (params) => {
     return new Promise((resolve, reject) => {
         const url = `mongodb://${dbConf.ip}:${dbConf.port}/${dbConf.database.users.db}`
         mongodb.connect(url, {
@@ -14,31 +14,22 @@ exports.connect = (params) => {
         })
     });
 };
-exports.createUser = (db, {
-    email,
-    code,
-    password = ""
-}) => {
+exports.findAllUsers = async (where = {}) => {
+    const db = await connect();
     return new Promise((resolve, reject) => {
-        let database = db.db(dbConf.database.users.db);
-        database.collection(dbConf.database.users.table).updateOne({
-            email
-        }, {
-            $set: {
-                code,
-                password
-            }
-        }, {
-            upsert: true,
-        }, (err, res) => {
+        const database = db.db(dbConf.database.users.db);
+        database.collection(dbConf.database.users.table).find(where).toArray(function (err, res) { // 返回集合中所有数据
             if (err) {
                 reject(err)
-            }
+            };
+            db.close();
             resolve(res)
-
-        })
+        });
     });
+
 }
+
+
 exports.getOneInfo = (db, where) => {
     return new Promise((resolve, reject) => {
         let database = db.db(dbConf.database.users.db);

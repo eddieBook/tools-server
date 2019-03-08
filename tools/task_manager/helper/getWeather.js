@@ -1,6 +1,8 @@
 const request = require('superagent')
+const cityList = require('./city.json')
 
-module.exports = async (cityCode = 101191101) => {
+module.exports = async (user, city) => {
+    let cityCode = cityList.find(n => n.city_name === city).city_code;
     return new Promise((resolve, reject) => {
         request.get(`http://t.weather.sojson.com/api/weather/city/${cityCode}`).end((err, res) => {
             if (err) {
@@ -13,13 +15,13 @@ module.exports = async (cityCode = 101191101) => {
                 }
             } = JSON.parse(res.text);
 
-            let msg = `
-            今天是${today.week},${today.type},
-            常州最${today.high},最${today.low},${today.notice},
+            let msg = ` 
+    早上好,${user}同志:
+            今天是${today.week},     ${today.type},
+            ${city}最${today.high},最${today.low},${today.notice},
             ------------------------------------------
-            明天是${tomorrow.week},${tomorrow.type}
-            常州最${tomorrow.high},最${tomorrow.low},${tomorrow.notice},
-            
+            明天是${tomorrow.week},     ${tomorrow.type}
+            ${city}最${tomorrow.high},最${tomorrow.low},${tomorrow.notice},
             `
             resolve(msg)
         })
