@@ -2,7 +2,7 @@
  * @Author: kele 
  * @Date: 2019-02-28 13:20:17 
  * @Last Modified by: kele
- * @Last Modified time: 2019-03-08 16:47:36
+ * @Last Modified time: 2019-03-08 17:35:21
  */
 const nodemailer = require('nodemailer')
 const config = module.exports = {
@@ -13,7 +13,7 @@ const config = module.exports = {
         ciphers: 'SSLv3'
     },
     auth: {
-        user: '3241990245@qq.com',
+        user: 'chj.ymh@qq.com',
         pass: 'yagdqgldpbyzdbec'
     }
 }

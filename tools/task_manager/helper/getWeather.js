@@ -17,11 +17,11 @@ module.exports = async (user, city) => {
 
             let msg = ` 
     早上好,${user}同志:
-            今天是${today.week},     ${today.type},
-            ${city}最${today.high},最${today.low},${today.notice},
+            今天【${today.week}】,天气【${today.type}】,温差【${today.low} /${today.high} 】
+            太阳下山时间${today.sunset},${today.notice}.
             ------------------------------------------
-            明天是${tomorrow.week},     ${tomorrow.type}
-            ${city}最${tomorrow.high},最${tomorrow.low},${tomorrow.notice},
+            明天【${tomorrow.week}】,天气【${tomorrow.type}】,温差【${tomorrow.low} /${tomorrow.high} 】
+            太阳下山时间${tomorrow.sunset},${tomorrow.notice}.
             `
             resolve(msg)
         })
