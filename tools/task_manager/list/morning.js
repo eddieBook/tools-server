@@ -12,6 +12,8 @@ module.exports = async () => {
             to: item.email,
             subject: 'Good Morning',
             text: data
-        })
+        }).catch((err) => {
+            logger.warn(err)
+        });
     });
 }
