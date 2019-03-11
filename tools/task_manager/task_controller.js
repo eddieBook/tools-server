@@ -8,7 +8,7 @@ exports.running = () => {
 
 
 
-    new Task('Good Morning', '0 0 8 * * * *', morning).start()
+    new Task('Good Morning', '0 0 6 * * * *', morning).start()
 }
 
 // exports.morning = () => {
