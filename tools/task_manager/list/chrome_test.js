@@ -2,30 +2,28 @@ const puppeteer = require('puppeteer')
 
 module.exports = async (params) => {
 
-    const browser = await (puppeteer.launch({
-        headless: false
-    }));
+    // const browser = await puppeteer.launch({
+    //     args: ['--no-sandbox', '--disable-setuid-sandbox']
+    // });
+    const browser = await puppeteer.launch({
+        headless: false,
+
+    });
     const page = await browser.newPage();
     page.setViewport({
-        width: 750,
-        height: 1300
+        width: 1920,
+        height: 1080
     })
-    await page.goto('http://map.winkey.vip/index');
-    await page.focus('.header-top .relative input');
-    await page.keyboard.sendCharacter('test');
-    await page.screenshot({
-        path: 'jianshu.png',
-        type: 'png',
-        // quality: 100, 只对jpg有效
-        fullPage: true,
-        // 指定区域截图，clip和fullPage两者只能设置一个
-        // clip: {
-        //   x: 0,
-        //   y: 0,
-        //   width: 1000,
-        //   height: 40
-        // }
-    });
-    browser.close();
+    await page.goto('https://9coin.pro');
+    setTimeout(async () => {
+        const divsCounts = await page.$$eval('.list-content a', (el) => Array.from(el).map(el => el.innerText));
+        divsCounts.forEach(element => {
+            console.log(element);
+        });
+    }, 2000);
+
+    // Get the "viewport" of the page, as reported by the page.
+
+    // await browser.close();
 
 }
