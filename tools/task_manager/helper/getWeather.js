@@ -22,6 +22,7 @@ module.exports = async (user, city) => {
             ------------------------------------------
             明天【${tomorrow.week}】,天气【${tomorrow.type}】,温差【${tomorrow.low} /${tomorrow.high} 】
             太阳下山时间${tomorrow.sunset},${tomorrow.notice}.
+            >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
             `
             resolve(msg)
         })

@@ -9,7 +9,7 @@ exports.running = () => {
     // chromeTest()
 
 
-    new Task('Good Morning', '0 0 6 * * * *', morning).start()
+    new Task('Good Morning', '1 * * * * * *', morning).start()
 }
 
 // exports.morning = () => {
