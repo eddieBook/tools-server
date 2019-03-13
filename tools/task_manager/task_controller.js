@@ -1,16 +1,20 @@
-const Task = require('./Task')
-const morning = require('./list/morning')
-const chromeTest = require('./list/chrome_test')
-
+/*
+ * @Author: kele 
+ * @Date: 2019-03-13 11:42:56 
+ * @Last Modified by:   kele 
+ * @Last Modified time: 2019-03-13 11:42:56 
+ */
+const Task = require('./Task');
+const morning = require('./list/morning');
+const getCsdnNews = require('./helper/getCsdnNews');
 
 exports.running = () => {
+	// chromeTest()
+	// getCsdnNews()
 
-
-    // chromeTest()
-
-
-    new Task('Good Morning', '1 * * * * * *', morning).start()
-}
+	// morning()
+	new Task('Good Morning', '6 * * * * * *', morning).start();
+};
 
 // exports.morning = () => {
 //     return new Task('Good Morning', '50 59 8 * * * *', morning)

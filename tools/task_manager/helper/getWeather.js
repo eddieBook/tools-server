@@ -1,3 +1,9 @@
+/*
+ * @Author: kele 
+ * @Date: 2019-03-13 09:42:44 
+ * @Last Modified by: kele
+ * @Last Modified time: 2019-03-13 11:29:23
+ */
 const request = require('superagent')
 const cityList = require('./city.json')
 
@@ -15,15 +21,17 @@ module.exports = async (user, city) => {
                 }
             } = JSON.parse(res.text);
 
-            let msg = ` 
-    早上好,${user}同志:
-            今天【${today.week}】,天气【${today.type}】,温差【${today.low} /${today.high} 】
-            太阳下山时间${today.sunset},${today.notice}.
-            ------------------------------------------
-            明天【${tomorrow.week}】,天气【${tomorrow.type}】,温差【${tomorrow.low} /${tomorrow.high} 】
-            太阳下山时间${tomorrow.sunset},${tomorrow.notice}.
-            >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-            `
+            let msg = `
+            <div>
+                <h3>早上好,${user}同志:</h3>
+                <p>
+                今天是<strong>${today.week}</strong>,天气<strong style="color:red;font-size:24px">${today.type}</strong>,温差<strong>${today.low} /${today.high} </strong>
+                太阳下山时间${today.sunset},${today.notice}.</p>
+                <p>
+                明天是<strong>${tomorrow.week}</strong>,天气<strong style="color:red;font-size:24px">${tomorrow.type}</strong>,温差<strong>${tomorrow.low} / ${tomorrow.high}</strong>
+                太阳下山时间${tomorrow.sunset},${tomorrow.notice}.</p>
+            </div><hr />
+      `
             resolve(msg)
         })
     });
