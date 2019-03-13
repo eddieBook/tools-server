@@ -1,8 +1,8 @@
 /*
  * @Author: kele 
  * @Date: 2019-03-13 11:42:54 
- * @Last Modified by:   kele 
- * @Last Modified time: 2019-03-13 11:42:54 
+ * @Last Modified by: kele
+ * @Last Modified time: 2019-03-13 13:51:11
  */
 const sendEmail = require('../../send_email');
 const logger = require('../../../logger');
@@ -32,10 +32,10 @@ module.exports = async () => {
 		// }).catch((err) => {
 		//     logger.warn(err)
 		// });
-		if (data && item.email) {
+		if (html && item.email) {
 			sendEmail({
-				to      : item.email,
-				subject : 'Good Morning',
+				to: item.email,
+				subject: 'Good Morning',
 				html
 			}).catch((err) => {
 				logger.warn(err);

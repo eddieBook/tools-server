@@ -1,19 +1,18 @@
 /*
  * @Author: kele 
  * @Date: 2019-03-13 11:42:56 
- * @Last Modified by:   kele 
- * @Last Modified time: 2019-03-13 11:42:56 
+ * @Last Modified by: kele
+ * @Last Modified time: 2019-03-13 13:53:57
  */
 const Task = require('./Task');
 const morning = require('./list/morning');
-const getCsdnNews = require('./helper/getCsdnNews');
 
 exports.running = () => {
 	// chromeTest()
 	// getCsdnNews()
 
 	// morning()
-	new Task('Good Morning', '6 * * * * * *', morning).start();
+	new Task('Good Morning', '0 0 6 * * * *', morning).start();
 };
 
 // exports.morning = () => {

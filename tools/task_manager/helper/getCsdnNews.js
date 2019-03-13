@@ -2,7 +2,7 @@
  * @Author: kele 
  * @Date: 2019-03-13 09:42:37 
  * @Last Modified by: kele
- * @Last Modified time: 2019-03-13 11:42:12
+ * @Last Modified time: 2019-03-13 17:27:04
  */
 const puppeteer = require('puppeteer');
 module.exports = async (params) => {
@@ -32,6 +32,7 @@ module.exports = async (params) => {
             content: el.innerText
         }
     }));
+    await browser.close();
     data.length = 5
     data.forEach(item => {
         back_html += `<dd><a href="${item.href}">${item.content}</a></dd>`
