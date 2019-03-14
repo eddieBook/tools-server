@@ -2,7 +2,7 @@
  * @Author: kele 
  * @Date: 2019-03-13 11:42:54 
  * @Last Modified by: kele
- * @Last Modified time: 2019-03-13 13:51:11
+ * @Last Modified time: 2019-03-14 10:58:33
  */
 const sendEmail = require('../../send_email');
 const logger = require('../../../logger');
@@ -13,6 +13,7 @@ const getCsdnNews = require('../helper/getCsdnNews');
 module.exports = async () => {
 	//大清早发个天气预报
 	let users = await userDb.findAllUsers();
+	let csdnNews = await getCsdnNews()
 	users.forEach(async (item) => {
 		let html = '';
 		//根据订阅内容来组织发送内容
@@ -21,7 +22,7 @@ module.exports = async () => {
 			if (item.subscription.includes('commen')) {
 				//天气
 				html += await getWeather(item.name, item.city);
-				html += await getCsdnNews();
+				html += csdnNews;
 			}
 		}
 		// console.log('html :', html);
