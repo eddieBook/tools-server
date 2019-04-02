@@ -2,7 +2,7 @@
  * @Author: kele 
  * @Date: 2019-03-13 11:42:54 
  * @Last Modified by: kele
- * @Last Modified time: 2019-04-01 17:52:56
+ * @Last Modified time: 2019-04-02 16:00:36
  */
 const sendEmail = require('../../send_email');
 const logger = require('../../../logger');
@@ -17,14 +17,15 @@ module.exports = async () => {
 	let csdnNews = await getCsdnNews();
 	users.forEach(async (item) => {
 		let html = '';
+		let subscription = item.subscription;
 		//根据订阅内容来组织发送内容
-		if (item.subscription) {
+		if (subscription) {
 			//加载通用订阅
-			if (item.subscription.includes('commen')) {
+			if (subscription.includes('commen')) {
 				//天气
 				html += await getWeather(item.name, item.city);
 			}
-			if (item.subscription.includes('csdn')) {
+			if (subscription.includes('csdn')) {
 				html += csdnNews;
 			}
 		}
