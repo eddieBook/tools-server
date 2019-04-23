@@ -2,7 +2,7 @@
  * @Author: kele 
  * @Date: 2019-01-11 15:30:25 
  * @Last Modified by: kele
- * @Last Modified time: 2019-04-11 14:00:12
+ * @Last Modified time: 2019-04-22 16:26:21
  */
 const koa = require('koa');
 const koaStatic = require('koa-static');
@@ -13,6 +13,7 @@ const routerController = require('./routers/router_controller');
 const logger = require('./logger');
 const taskController = require('./tools/task_manager/task_controller');
 const creeperController = require('./tools/creeper/creeper_controller');
+const robot = require('./tools/weixin/robot');
 
 const app = new koa();
 
