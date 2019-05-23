@@ -1,5 +1,5 @@
 # 端口号
-PORT: 8090
+PORT: 80
 # 是否允许跨域
 ALLOW_ORIGIN: false 
 # websocket 端口
